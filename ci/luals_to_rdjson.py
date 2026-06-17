@@ -26,7 +26,9 @@ def main():
     diagnostics = []
     if os.path.exists(check_path) and os.path.getsize(check_path) > 0:
         data = json.load(open(check_path, encoding="utf-8"))
-        for uri, diags in data.items():
+        # LuaLS emits a uri->diagnostics map when there are findings, but an empty list [] when
+        # the workspace is clean. Only the map form has diagnostics to convert.
+        for uri, diags in (data.items() if isinstance(data, dict) else []):
             path = uri[len("file://"):] if uri.startswith("file://") else uri
             rel = os.path.relpath(path, basedir)
             for d in diags:
