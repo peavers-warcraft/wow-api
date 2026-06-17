@@ -1,0 +1,12 @@
+# Per-addon validation workflow. Copy to each addon repo as .github/workflows/validate.yml
+# (mirrors how release.yml calls the shared workflow-templates). Runs on every PR and posts
+# luacheck + lua-language-server findings as inline comments.
+name: Validate
+
+on:
+  pull_request:
+
+jobs:
+  validate:
+    uses: peavers-warcraft/workflow-templates/.github/workflows/validate.yml@master
+    secrets: inherit
