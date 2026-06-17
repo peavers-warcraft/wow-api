@@ -201,9 +201,11 @@ return {
   -- which is the whole point. Keeps per-addon .luacheckrc tiny across all 16 addons.
   allow_defined_top = true,
   -- Writable globals every addon shares. The cross-addon changelog registry is appended
-  -- to by each addon's Changelog.lua; SlashCmdList gets per-addon command fields assigned.
+  -- to by each addon's Changelog.lua; SlashCmdList gets per-addon command fields assigned;
+  -- StaticPopupDialogs gets per-addon dialog tables registered into it (the /papidump
+  -- captures it as a strict read-only table, so writes need it declared writable here).
   -- Per-addon .luacheckrc merges its own globals on top of these.
-  globals = { "PeaversChangelogs", "SlashCmdList" },
+  globals = { "PeaversChangelogs", "SlashCmdList", "StaticPopupDialogs" },
   -- Warnings accepted project-wide. We deliberately KEEP 113 (undefined global) and
   -- 143 (undefined field) ON — those catch API typos, which is the whole point.
   ignore  = {
